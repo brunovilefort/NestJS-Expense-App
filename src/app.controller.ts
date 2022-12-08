@@ -7,7 +7,7 @@ export class AppController {
     return [];
   }
 
-  @Get('/:id')
+  @Get(':id')
   getReportById() {
     return {};
   }
@@ -17,12 +17,12 @@ export class AppController {
     return 'Created';
   }
 
-  @Put('/:id')
+  @Put(':id')
   updateReport() {
     return 'Updated';
   }
 
-  @Delete('/:id')
+  @Delete(':id')
   deleteReport() {
     return 'Deleted';
   }
