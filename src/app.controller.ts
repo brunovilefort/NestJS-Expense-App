@@ -12,14 +12,17 @@ import { v4 as uuid } from 'uuid';
 
 import { database } from '@/database';
 import { ReportType } from '@/interfaces';
+import { AppService } from '@/app.service';
 
 @Controller('api/report/:type')
 export class AppController {
+  constructor(private readonly appService: AppService) {}
+
   @Get()
   getAllReports(@Param('type') type: string) {
     const reportType =
       type === 'income' ? ReportType.INCOME : ReportType.EXPENSE;
-    return database.report.filter((report) => report.type === reportType);
+    return this.appService.getAllReports(reportType);
   }
 
   @Get(':id')
