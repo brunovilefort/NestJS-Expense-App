@@ -1,5 +1,5 @@
 import { ReportType } from '@/interfaces';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import {
   IsNotEmpty,
   IsNumber,
@@ -33,8 +33,17 @@ export class ReportResponseDTO {
   id: string;
   source: string;
   amount: number;
+  @Expose({ name: 'createdAt' })
+  transformCreatedAt() {
+    return this.created_at;
+  }
+  @Exclude()
   created_at: Date;
   @Exclude()
   updated_at: Date;
   type: ReportType;
+
+  constructor(partial: Partial<ReportResponseDTO>) {
+    Object.assign(this, partial);
+  }
 }

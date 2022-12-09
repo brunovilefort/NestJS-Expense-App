@@ -11,13 +11,17 @@ type UpdateReport = { amount?: number; source?: string };
 @Injectable()
 export class AppService {
   getAllReports(type: ReportType): ReportResponseDTO[] {
-    return database.report.filter((report) => report.type === type);
+    return database.report
+      .filter((report) => report.type === type)
+      .map((report) => new ReportResponseDTO(report));
   }
 
   getReportById(type: ReportType, id: string): ReportResponseDTO {
-    return database.report
+    const report = database.report
       .filter((report) => report.type === type)
       .find((report) => report.id === id);
+    if (!report) return;
+    return new ReportResponseDTO(report);
   }
 
   createReport(
@@ -33,7 +37,7 @@ export class AppService {
       type,
     };
     database.report.push(newReport);
-    return newReport;
+    return new ReportResponseDTO(newReport);
   }
 
   updateReport(
@@ -53,7 +57,7 @@ export class AppService {
       ...body,
       updated_at: new Date(),
     };
-    return database.report[reportIndex];
+    return new ReportResponseDTO(database.report[reportIndex]);
   }
 
   deleteReport(id: string) {
