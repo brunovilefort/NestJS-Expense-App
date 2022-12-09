@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -70,7 +71,11 @@ export class AppController {
   }
 
   @Delete(':id')
-  deleteReport() {
-    return 'Deleted';
+  @HttpCode(204)
+  deleteReport(@Param('id') id: string) {
+    const reportIndex = database.report.findIndex((report) => report.id === id);
+    if (reportIndex === -1) return;
+    database.report.splice(reportIndex, 1);
+    return;
   }
 }
