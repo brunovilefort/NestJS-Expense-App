@@ -1,4 +1,4 @@
-export const enum ReportType {
+export enum ReportType {
   INCOME = 'income',
   EXPENSE = 'expense',
 }
