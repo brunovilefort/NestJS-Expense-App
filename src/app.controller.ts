@@ -9,7 +9,6 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { database } from '@/database';
 import { ReportType } from '@/interfaces';
 import { AppService } from '@/app.service';
 
@@ -55,9 +54,6 @@ export class AppController {
   @Delete(':id')
   @HttpCode(204)
   deleteReport(@Param('id') id: string) {
-    const reportIndex = database.report.findIndex((report) => report.id === id);
-    if (reportIndex === -1) return;
-    database.report.splice(reportIndex, 1);
-    return;
+    return this.appService.deleteReport(id);
   }
 }

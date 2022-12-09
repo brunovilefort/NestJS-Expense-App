@@ -46,4 +46,11 @@ export class AppService {
     };
     return database.report[reportIndex];
   }
+
+  deleteReport(id: string) {
+    const reportIndex = database.report.findIndex((report) => report.id === id);
+    if (reportIndex === -1) return;
+    database.report.splice(reportIndex, 1);
+    return;
+  }
 }
