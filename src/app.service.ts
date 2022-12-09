@@ -3,22 +3,27 @@ import { v4 as uuid } from 'uuid';
 
 import { ReportType } from '@/interfaces';
 import { database } from '@/database';
+import { ReportResponseDTO } from '@/dtos';
 
 type ReportData = { amount: number; source: string };
+type UpdateReport = { amount?: number; source?: string };
 
 @Injectable()
 export class AppService {
-  getAllReports(type: ReportType) {
+  getAllReports(type: ReportType): ReportResponseDTO[] {
     return database.report.filter((report) => report.type === type);
   }
 
-  getReportById(type: ReportType, id: string) {
+  getReportById(type: ReportType, id: string): ReportResponseDTO {
     return database.report
       .filter((report) => report.type === type)
       .find((report) => report.id === id);
   }
 
-  createReport(type: ReportType, { amount, source }: ReportData) {
+  createReport(
+    type: ReportType,
+    { amount, source }: ReportData,
+  ): ReportResponseDTO {
     const newReport = {
       id: uuid(),
       source,
@@ -31,7 +36,11 @@ export class AppService {
     return newReport;
   }
 
-  updateReport(type: ReportType, id: string, body: ReportData) {
+  updateReport(
+    type: ReportType,
+    id: string,
+    body: UpdateReport,
+  ): ReportResponseDTO {
     const reportToUpdate = database.report
       .filter((report) => report.type === type)
       .find((report) => report.id === id);
