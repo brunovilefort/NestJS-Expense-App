@@ -49,18 +49,7 @@ export class AppController {
   ) {
     const reportType =
       type === 'income' ? ReportType.INCOME : ReportType.EXPENSE;
-    const reportToUpdate = database.report
-      .filter((report) => report.type === reportType)
-      .find((report) => report.id === id);
-    if (!reportToUpdate) return;
-    const reportIndex = database.report.findIndex(
-      (report) => report.id === reportToUpdate.id,
-    );
-    database.report[reportIndex] = {
-      ...database.report[reportIndex],
-      ...body,
-    };
-    return database.report[reportIndex];
+    return this.appService.updateReport(reportType, id, body);
   }
 
   @Delete(':id')

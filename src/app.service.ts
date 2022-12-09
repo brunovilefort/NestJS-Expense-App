@@ -30,4 +30,20 @@ export class AppService {
     database.report.push(newReport);
     return newReport;
   }
+
+  updateReport(type: ReportType, id: string, body: ReportData) {
+    const reportToUpdate = database.report
+      .filter((report) => report.type === type)
+      .find((report) => report.id === id);
+    if (!reportToUpdate) return;
+    const reportIndex = database.report.findIndex(
+      (report) => report.id === reportToUpdate.id,
+    );
+    database.report[reportIndex] = {
+      ...database.report[reportIndex],
+      ...body,
+      updated_at: new Date(),
+    };
+    return database.report[reportIndex];
+  }
 }
