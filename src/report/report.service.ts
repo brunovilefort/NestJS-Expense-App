@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 
-import { ReportType } from '@/interfaces';
 import { database } from '@/database';
+import { ReportType } from '@/interfaces';
 import { ReportResponseDTO } from '@/dtos';
 
 type ReportData = { amount: number; source: string };

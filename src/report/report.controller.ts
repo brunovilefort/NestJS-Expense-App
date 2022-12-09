@@ -11,8 +11,8 @@ import {
   ParseEnumPipe,
 } from '@nestjs/common';
 
-import { ReportType } from '@/interfaces';
 import { ReportService } from '@/report/report.service';
+import { ReportType } from '@/interfaces';
 import { CreateReportDTO, ReportResponseDTO, UpdateReportDTO } from '@/dtos';
 
 @Controller('api/report/:type')

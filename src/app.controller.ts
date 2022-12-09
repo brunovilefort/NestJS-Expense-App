@@ -1,4 +1,4 @@
 import { Controller } from '@nestjs/common';
 
-@Controller('api/report/:type')
+@Controller()
 export class AppController {}

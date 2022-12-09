@@ -1,4 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
-@Controller('summary')
-export class SummaryController {}
+import { SummaryService } from '@/summary/summary.service';
+
+@Controller('api/summary')
+export class SummaryController {
+  constructor(private readonly summaryService: SummaryService) {}
+
+  @Get()
+  getSummary() {
+    return this.summaryService.calculateSummary();
+  }
+}
